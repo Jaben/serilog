@@ -96,7 +96,7 @@ namespace Serilog.Settings.KeyValuePairs
                 {
                     var target = sinkConfigurationMethods
                         .Where(m => m.Name == sinkDirective.Key &&
-                            m.GetParameters().Skip(1).All(p => p.HasDefaultValue || sinkDirective.Any(s => s.Argument == p.Name)))
+                            m.GetParameters().Skip(1).All(p => p.HasDefaultValue() || sinkDirective.Any(s => s.Argument == p.Name)))
                         .OrderByDescending(m => m.GetParameters().Length)
                         .FirstOrDefault();
 
@@ -162,7 +162,7 @@ namespace Serilog.Settings.KeyValuePairs
         internal static IEnumerable<MethodInfo> FindSinkConfigurationMethods(IEnumerable<Assembly> configurationAssemblies)
         {
             return configurationAssemblies
-                .SelectMany(a => a.ExportedTypes.Select(t => t.GetTypeInfo()).Where(t => t.IsSealed && t.IsAbstract && !t.IsNested))
+                .SelectMany(a => a.GetExportedTypes().Select(t => t.GetTypeInfo()).Where(t => t.IsSealed && t.IsAbstract && !t.IsNested))
                 .SelectMany(t => t.DeclaredMethods)
                 .Where(m => m.IsStatic && m.IsPublic && m.IsDefined(typeof(ExtensionAttribute), false))
                 .Where(m => m.GetParameters()[0].ParameterType == typeof(LoggerSinkConfiguration));

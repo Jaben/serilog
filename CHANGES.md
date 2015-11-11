@@ -1,3 +1,26 @@
+1.5.12
+ * #538 - mark assemblies as CLS compliant
+ * #532 - `WriteTo.Logger()` improvements for sub-pipelines
+
+1.5.11
+ * #523 - prevent excessive RAM use when large strings are cached as message templates
+
+1.5.10
+ * #514 - provide `OnEmptyBatch()` to allow batching sinks to perform background work
+
+1.5.9
+ * #491 - enable `ReadFrom.KeyValuePairs()` in .NET 4.0 build
+
+1.5.8
+ * #484 - generic overloads on `Log` to avoid boxing/allocation
+
+1.5.7
+ * #456 - support `ReadFrom.AppSettings()` and friends on .NET 4.0
+
+1.5.6
+ * Builds on `master` now derive their version from `CHANGES.md` (rather than vice-versa)
+ * #441 - Fix conversion of `Nullable<>` settings
+
 1.5.5
  * #433 - Revert the default destructuring depth back to 10
 
